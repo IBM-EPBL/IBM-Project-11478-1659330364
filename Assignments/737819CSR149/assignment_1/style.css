@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Irish+Grover&family=Poppins:wght@200;400&display=swap");
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+h1 {
+  font-weight: 200px !important;
+}
+.template {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 20px;
+  width: 100%;
+}
+.inner {
+  background-color: white;
+}
+.content-body {
+  padding: 50px;
+}
+.heading {
+  background-color: rgb(3, 154, 192);
+  display: flex;
+}
+.photo {
+  position: relative;
+  top: 80px;
+  left: 50px;
+}
+.Personal-details {
+  padding-top: 80px;
+  padding-bottom: 50px;
+
+  color: white;
+}
+.Personal-details h1 {
+  font-size: 40px;
+}
+.btn {
+  border-radius: 50px !important;
+  padding: 10px !important;
+  margin-right: 20px;
+}
+
+.content-body {
+  padding-top: 50px;
+}
+.content {
+  padding-top: 20px;
+}
+.table {
+  margin: 70px;
+}
+table {
+  width: 100% !important;
+}
+table tr {
+  border: none;
+}
+table td {
+  padding: 5px !important;
+  width: 25% !important;
+}
+.cv {
+  width: 15%;
+}
+.Profession .right .progress-bar {
+  background-color: rgb(7, 122, 17) !important;
+}
+
+.Profession .left .progress-bar {
+  background-color: rgb(3, 154, 192) !important;
+}
+.Profession .p {
+  margin-top: 20px;
+}
+hr {
+  height: 10px !important;
+  background-color: white !important;
+}
+i {
+  margin: 5px;
+}
