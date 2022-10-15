@@ -64,9 +64,16 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
+            session['username'] = user['username']
             flash("Login successful")
             return redirect(url_for('home'))
 
         flash(error)
 
     return render_template('auth/login.html')
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    flash("Logged Out")
+    return redirect(url_for('home'))

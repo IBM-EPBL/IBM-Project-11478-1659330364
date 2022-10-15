@@ -3,7 +3,11 @@
 {% block content %}
 
     <div class="container d-flex justify-content-center">
-    <h1>Home</h1>
+        {% if not session['username'] %}
+            <h1>You are not logged in</h1>
+        {% else %}
+            <h1>Welcome {{ session['username'] }} </h1>
+        {% endif %}
     </div>
 
 {% endblock content %}
