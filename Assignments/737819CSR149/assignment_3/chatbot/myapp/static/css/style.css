@@ -1,0 +1,19 @@
+h1 {
+  font-size: 45px !important;
+  line-height: 60px;
+  font-weight: bold;
+}
+p {
+  font-size: 20px;
+}
+.nav-link{
+    color: white;
+   font-size: 20px;
+}
+.nav-link:hover{
+    color:rgb(195, 195, 195);
+}
+.navbar-brand{
+    font-size: 20px;
+    margin-left: 20px;
+}
