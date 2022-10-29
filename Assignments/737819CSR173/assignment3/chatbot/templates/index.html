@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>assignment_3</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://buckeforcss.s3.jp-tok.cloud-object-storage.appdomain.cloud/ibmcssfile.css"
+    />
+  </head>
+  <style>
+    p {color: white;}
+
+    .container {border: 5px double white;padding: 10px;}
+  </style>
+  <body>
+    <div class="container" style="padding-top: 100px">
+        <h1>Financial Services Limited</h1><br/>
+    </div>
+    <div class="container" style="padding-top: 100px">
+        <p>For help chat with our assistant at bottom left</p><br/>
+    </div>
+  </body>
+  <script>
+  window.watsonAssistantChatOptions = {
+    integrationID: "6b5fab27-1dc4-40b2-9b72-88d67e61edbc", // The ID of this integration.
+    region: "au-syd", // The region your integration is hosted in.
+    serviceInstanceID: "4d2b4de4-cb91-49be-850e-031a9251fcbc", // The ID of your service instance.
+    onLoad: function(instance) { instance.render(); }
+  };
+  setTimeout(function(){
+    const t=document.createElement('script');
+    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+    document.head.appendChild(t);
+  });
+</script>
+</html>
