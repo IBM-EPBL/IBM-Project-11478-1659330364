@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>assignment_3</title>
+    <link
+      rel="stylesheet"
+      href="https://buckeforcss.s3.jp-tok.cloud-object-storage.appdomain.cloud/ibmcssfile.css"
+    />
+  </head>
+  <!-- <style>
+    body {background-image: linear-gradient(to right,red,crimson);}
+    h1   {color: white; text-align: center;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;}
+    .container {display:flex;}
+    .container img {height:200px;width:200px;margin: 40px;border: 5px solid white; padding:5px}
+  </style> -->
+  <body style="background-image:linear-gradient(to right,aqua,blue);">
+    <center>
+      <h1>Nature Images</h1>
+    </center>
+    <div class="container">
+      {% for f in file %}
+      <div class="container">
+        <img
+          src="https://cloud-object-storage-qm-cos-standard-bnh.s3.us-south.cloud-object-storage.appdomain.cloud/{{f}}"
+        />
+      </div>
+      {% endfor%}
+    </div>
+  </body>
+</html>
