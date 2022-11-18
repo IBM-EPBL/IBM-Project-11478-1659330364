@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container ">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+  <h5 class="mt-5">Today Expense Breakdown</h5>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">TIME</th>
+        <th scope="col">AMOUNT</th>
+      </tr>
+    </thead>
+    {% for row in texpense %}
+    <tbody>
+      <tr>
+        <td>{{row [0]}}</td>
+        <td>{{row[1] }}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+  <div class="row mt-10">
+    <div class="col-md-6">
+      <h3 class="mt-5">Expense Breakdown BY Category</h3>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col-sm">#</th>
+            <th scope="col-sm">Category</th>
+            <th scope="col-sm">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Food</td>
+            <td id="tfood">{{t_food}}</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Entertainment</td>
+            <td id="tentertainment">{{t_entertainment}}</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Business</td>
+            <td id="tbusiness">{{t_business}}</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Rent</td>
+            <td id="trent">{{t_rent}}</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>EMI</td>
+            <td id="temi">{{ t_EMI }}</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>Other</td>
+            <td id="tother">{{ t_other}}</td>
+          </tr>
+          <tr>
+            <th scope="row-dark">7</th>
+            <td>Total</td>
+            <td>₹ {{total}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <canvas id="myChart" width="400" height="400"></canvas>
+      <script>
+        let food = document.getElementById('tfood').innerHTML
+        let entertainment = document.getElementById('tentertainment').innerHTML
+        let business = document.getElementById('tbusiness').innerHTML
+        let rent = document.getElementById('trent').innerHTML
+        let emi = document.getElementById('temi').innerHTML
+        let other = document.getElementById('tother').innerHTML
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Food', 'Entertainment', 'Business', 'Rent', 'EMI', 'Other'],
+            datasets: [{
+              label: 'Expenses Chart',
+              data: [food, entertainment, business, rent, emi, other],
+              backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(0, 0, 0)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)',
+                'rgb(215, 159, 64)'
+              ],
+
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'bottom',
+              },
+              title: {
+                display: true,
+                text: 'EXPENSE BREAKDOWN'
+              }
+            }
+          }
+        });
+
+
+
+
+
+      </script>
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}

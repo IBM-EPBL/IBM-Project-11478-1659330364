@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+
+
+    h1 {
+        color: crimson;
+    }
+
+
+    .ccc {
+        display: flex;
+        margin-top: 10%;
+    }
+
+    .ccc img {
+        flex: 1;
+        height: 20%;
+        width: 20%;
+    }
+
+    .ccc div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+</style>
+<div id=aa class="container">
+    <div class="ccc">
+        <img src="https://lukaszadam.com/catp_computer_illustration.svg">
+        <div>
+            <h1>Let Start Journey</h1>
+            <span class="btn btn-danger"><a href="/add" style="color: white;">Let's Begin</a></span>
+        </div>
+    </div>
+    <br>
+    <br>
+
+
+</div>
+
+{% endblock %}

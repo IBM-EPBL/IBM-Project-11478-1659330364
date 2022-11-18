@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container d-flex flex-column align-items-center justify-content-center p-10" style="margin: 10px;">
+    <p> Currently your MONTHLY limit is ₹ {{y}} </p>
+    <p> ENTER the MONTHLY LIMIT to avoid over EXPENSES</p>
+    <form class="" action="/limitnum" method="POST">
+        <input type="number" name="number" required /> <span>
+            <button class="btn btn-dark" type="submit">ENTER</button>
+        </span>
+    </form>
+</div>
+{% endblock %}
