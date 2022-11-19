@@ -2,19 +2,20 @@ from flask import Flask, render_template, request, redirect, session
 
 import ibm_db
 import re
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
 
+import os
+import sendgrid
+from sendgrid.helpers.mail import Mail, Email, To, Content
 
 app = Flask(__name__)
 
+DB_URL = str(os.environ.get('DB_URL'))
+SENDGRID_API_KEY = str(os.environ.get('SENDGRID_API_KEY'))
 
 app.secret_key = "a"
 
 conn = ibm_db.connect(
-    "DATABASE=bludb;HOSTNAME=ea286ace-86c7-4d5b-8580-3fbfa46b1c66.bs2io90l08kqb1od8lcg.databases.appdomain.cloud;PORT=31505;SECURITY=SSL;SSLServerCertificate=DigiCertGlobalCA.crt;UID=jfw41307;PWD=aOTWgt2i4rRPLkAG;",
+    DB_URL,
     "",
     "",
 )
@@ -138,7 +139,8 @@ def addexpense():
     ibm_db.bind_param(stmt, 7, time)
     ibm_db.execute(stmt)
 
-    print(date + " " + expensename + " " + amount + " " + paymode + " " + category)
+    print(date + " " + expensename + " " +
+          amount + " " + paymode + " " + category)
 
     sql1 = "SELECT * FROM EXPENSES WHERE USERID=? AND MONTH(date)=MONTH(DATE(NOW()))"
     stmt1 = ibm_db.prepare(conn, sql1)
@@ -158,44 +160,35 @@ def addexpense():
     ibm_db.execute(stmt2)
     limit = ibm_db.fetch_tuple(stmt2)
 
-    if len(limit) > 0 and total > limit[0]:
-
-        mail_from = "nishanths.19cse@kongu.edu"
-        mail_to = session["email"]
-
-        msg = MIMEMultipart()
-        msg["From"] = mail_from
-        msg["To"] = mail_to
-        msg["Subject"] = "Expense Alert Limit"
-        mail_body = """
-        Dear User, You have exceeded the specified monthly expense Limit!!!!
-
-        """
-        msg.attach(MIMEText(mail_body))
-
-        try:
-            server = smtplib.SMTP_SSL("smtp.sendgrid.net", 465)
-            server.ehlo()
-            server.login(
-                "apikey",
-                "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",
-            )
-            server.sendmail(mail_from, mail_to, msg.as_string())
-            server.close()
-            print("mail sent")
-        except Exception as e:
-            print("issue", e)
-
+    if len(limit) > 0 and total < limit[0]:
+        sendEmail(session["email"])
     return redirect("/display")
 
 
-# DISPLAY---graph
+def sendEmail(reciver):
+
+    sg = sendgrid.SendGridAPIClient(api_key=SENDGRID_API_KEY)
+    # Change to your verified sender
+    from_email = Email("nishanths.19cse@kongu.edu")
+    # to_email = To(session["email"])  # Change to your recipient
+    to_email = To(reciver)  # Change to your recipient
+    subject = "Expense Alert Limit"
+    content = Content(
+        "text/plain", "Dear User, You have exceeded the specified monthly expense Limit!!!!")
+    mail = Mail(from_email, to_email, subject, content)
+
+    # Get a JSON-ready representation of the Mail object
+    mail_json = mail.get()
+
+    # Send an HTTP POST request to /mail/send
+    response = sg.client.mail.send.post(request_body=mail_json)
+    print(response.status_code)
+    print(response.headers)
 
 
 @app.route("/display")
 def display():
     print(session["username"], session["id"])
-
     sql = "SELECT * FROM EXPENSES WHERE USERID=?"
     stmt = ibm_db.prepare(conn, sql)
     ibm_db.bind_param(stmt, 1, session["id"])
