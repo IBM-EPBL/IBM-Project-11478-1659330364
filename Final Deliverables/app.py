@@ -129,7 +129,20 @@ def addexpense():
     time = request.form["time"]
 
     sql = "INSERT INTO EXPENSES(USERID,DATE,EXPENSENAME,AMOUNT,PAYMENTMODE,CATEGORY,TIME) VALUES(?,?,?,?,?,?,?)"
+    creditpoint = (int(amount)/10000)*100
+    # sql2 = "INSERT INTO CREDITS(USERID,CREDIT) VALUES(?,?)"
+    # sql3 = "SELECT CREDIT FROM CREDITS WHERE USERID=?"
     stmt = ibm_db.prepare(conn, sql)
+    # stmt2 = ibm_db.prepare(conn, sql2)
+    # stmt3 = ibm_db.prepare(conn, sql3)
+    # ibm_db.bind_param(stmt3,1,session["id"])
+    # ibm_db.execute(stmt3)
+    # fetchedamount = ibm_db.fetch_tuple(stmt3)
+    # point = 0
+    # for i in fetchedamount:
+    #     point = point + i
+    # creditpoint = point+creditpoint
+    # print(creditpoint)
     ibm_db.bind_param(stmt, 1, session["id"])
     ibm_db.bind_param(stmt, 2, date)
     ibm_db.bind_param(stmt, 3, expensename)
@@ -137,11 +150,12 @@ def addexpense():
     ibm_db.bind_param(stmt, 5, paymode)
     ibm_db.bind_param(stmt, 6, category)
     ibm_db.bind_param(stmt, 7, time)
+    # ibm_db.bind_param(stmt2,1,session["id"])
+    # ibm_db.bind_param(stmt2,2,creditpoint)
     ibm_db.execute(stmt)
-
+    # ibm_db.execute(stmt2)
     print(date + " " + expensename + " " +
           amount + " " + paymode + " " + category)
-
     sql1 = "SELECT * FROM EXPENSES WHERE USERID=? AND MONTH(date)=MONTH(DATE(NOW()))"
     stmt1 = ibm_db.prepare(conn, sql1)
     ibm_db.bind_param(stmt1, 1, session["id"])
@@ -184,8 +198,26 @@ def sendEmail(reciver):
     response = sg.client.mail.send.post(request_body=mail_json)
     print(response.status_code)
     print(response.headers)
-
-
+@app.route("/reward")
+def reward():
+    sql = "SELECT AMOUNT FROM EXPENSES WHERE USERID=? AND MONTH(date)=MONTH(DATE(NOW()))"
+    stmt = ibm_db.prepare(conn, sql)
+    ibm_db.bind_param(stmt, 1, session["id"])
+    ibm_db.execute(stmt)
+    fetchedamount = ibm_db.fetch_tuple(stmt)
+    point = 0
+    for i in fetchedamount:
+        point = point + i
+    sql1 = "SELECT EXPLIMIT FROM LIMITS WHERE USERID=?"
+    stmt1 = ibm_db.prepare(conn, sql)
+    ibm_db.bind_param(stmt1, 1, session["id"])
+    limit = ibm_db.fetch_tuple(stmt)
+    for i in limit:
+        print(i)
+        limit = i
+    creditpoint = (point/10000)*100
+    creditpoint = 100-creditpoint
+    return render_template("reward.html",point=creditpoint)
 @app.route("/display")
 def display():
     print(session["username"], session["id"])
@@ -460,7 +492,6 @@ def month():
         t_EMI=t_EMI,
         t_other=t_other,
     )
-
 
 @app.route("/year")
 def year():

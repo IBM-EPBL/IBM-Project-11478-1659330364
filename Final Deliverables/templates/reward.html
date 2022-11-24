@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+    body{
+    font-family: 'Poppins', sans-serif;
+    font-family: 'PT Serif', serif;
+    }
+    h1{
+        text-align: center;
+        color: white;
+    }
+    .container{
+        margin:auto;
+        border-bottom-left-radius:20px;
+        border-bottom-right-radius:20px;
+        background-color: rgba(220, 20, 60, 0.809);
+        padding: 60px;
+    }
+</style> 
+<body>
+    <div class="container">
+    <h1>This Month Points :<span>{{point}}</span></h1>
+    {% if point >= 70 %} 
+    <h2 style="color:greenyellow;text-align: center;">😎Great Job Saved More than 70%</h2>
+    {% elif point <= 70 and point >= 40 %} 
+    <h2 style="color:orange;text-align: center;">😀Fine Job Saved More than 40%</h2>
+    {%else%} 
+    <h2 style="color:red;text-align: center;">☹️Have to do better Savings is less than 40%</h2>
+    {% endif %}
+    </div>
+</body>
+</html>
+{% endblock %}
