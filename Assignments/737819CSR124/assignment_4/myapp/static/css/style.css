@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  color: white;
+  background-color: black;
+  font-family: "Poppins", sans-serif;
+}
+
+div {
+  margin-top: 200px;
+  width: 100%;
+  text-align: center;
+}
+
+p {
+  color: black;
+  font-size: 30px;
+}
+body {
+  background-color: black;
+  font-family: cursive;
+}
+
+.glow {
+  font-size: 80px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
